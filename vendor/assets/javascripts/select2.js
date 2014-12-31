@@ -1233,11 +1233,13 @@ the specific language governing permissions and limitations under the Apache Lic
                 viewportBottom = $window.scrollTop() + windowHeight,
                 dropTop = offset.top + height,
                 dropLeft = offset.left,
-                enoughRoomBelow = dropTop + dropHeight <= viewportBottom,
-                enoughRoomAbove = (offset.top - dropHeight) >= $window.scrollTop(),
+                // enoughRoomBelow = dropTop + dropHeight <= viewportBottom,
+                // enoughRoomAbove = (offset.top - dropHeight) >= $window.scrollTop(),
+                enoughRoomBelow = true,
+                enoughRoomAbove = false,
                 dropWidth = $dropdown.outerWidth(false),
                 enoughRoomOnRight = dropLeft + dropWidth <= viewPortRight,
-                aboveNow = $dropdown.hasClass("select2-drop-above"),
+                // aboveNow = $dropdown.hasClass("select2-drop-above"),
                 bodyOffset,
                 above,
                 changeDirection,
@@ -1245,38 +1247,38 @@ the specific language governing permissions and limitations under the Apache Lic
                 resultsListNode;
 
             // always prefer the current above/below alignment, unless there is not enough room
-            if (aboveNow) {
-                above = true;
-                if (!enoughRoomAbove && enoughRoomBelow) {
-                    changeDirection = true;
-                    above = false;
-                }
-            } else {
-                above = false;
-                if (!enoughRoomBelow && enoughRoomAbove) {
-                    changeDirection = true;
-                    above = true;
-                }
-            }
+            // if (aboveNow) {
+            //     above = true;
+            //     if (!enoughRoomAbove && enoughRoomBelow) {
+            //         changeDirection = true;
+            //         above = false;
+            //     }
+            // } else {
+            //     above = false;
+            //     if (!enoughRoomBelow && enoughRoomAbove) {
+            //         changeDirection = true;
+            //         above = true;
+            //     }
+            // }
 
             //if we are changing direction we need to get positions when dropdown is hidden;
-            if (changeDirection) {
-                $dropdown.hide();
-                offset = this.container.offset();
-                height = this.container.outerHeight(false);
-                width = this.container.outerWidth(false);
-                dropHeight = $dropdown.outerHeight(false);
-                viewPortRight = $window.scrollLeft() + windowWidth;
-                viewportBottom = $window.scrollTop() + windowHeight;
-                dropTop = offset.top + height;
-                dropLeft = offset.left;
-                dropWidth = $dropdown.outerWidth(false);
-                enoughRoomOnRight = dropLeft + dropWidth <= viewPortRight;
-                $dropdown.show();
+            // if (changeDirection) {
+            //     $dropdown.hide();
+            //     offset = this.container.offset();
+            //     height = this.container.outerHeight(false);
+            //     width = this.container.outerWidth(false);
+            //     dropHeight = $dropdown.outerHeight(false);
+            //     viewPortRight = $window.scrollLeft() + windowWidth;
+            //     viewportBottom = $window.scrollTop() + windowHeight;
+            //     dropTop = offset.top + height;
+            //     dropLeft = offset.left;
+            //     dropWidth = $dropdown.outerWidth(false);
+            //     enoughRoomOnRight = dropLeft + dropWidth <= viewPortRight;
+            //     $dropdown.show();
 
-                // fix so the cursor does not move to the left within the search-textbox in IE
-                this.focusSearch();
-            }
+            //     // fix so the cursor does not move to the left within the search-textbox in IE
+            //     this.focusSearch();
+            // }
 
             if (this.opts.dropdownAutoWidth) {
                 resultsListNode = $('.select2-results', $dropdown)[0];
@@ -1311,18 +1313,18 @@ the specific language governing permissions and limitations under the Apache Lic
                 width: width
             };
 
-            if (above) {
-                css.top = offset.top - dropHeight;
-                css.bottom = 'auto';
-                this.container.addClass("select2-drop-above");
-                $dropdown.addClass("select2-drop-above");
-            }
-            else {
-                css.top = dropTop;
-                css.bottom = 'auto';
-                this.container.removeClass("select2-drop-above");
-                $dropdown.removeClass("select2-drop-above");
-            }
+            // if (above) {
+            //     css.top = offset.top - dropHeight;
+            //     css.bottom = 'auto';
+            //     this.container.addClass("select2-drop-above");
+            //     $dropdown.addClass("select2-drop-above");
+            // }
+            // else {
+            css.top = dropTop;
+            css.bottom = 'auto';
+            this.container.removeClass("select2-drop-above");
+            $dropdown.removeClass("select2-drop-above");
+            // }
             css = $.extend(css, evaluate(this.opts.dropdownCss, this.opts.element));
 
             $dropdown.css(css);
